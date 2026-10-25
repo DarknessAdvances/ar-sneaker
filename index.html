@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Примерка кроссовок (AR)</title>
+    <!-- 1. Подключаем A-Frame -->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <!-- 2. Подключаем AR.js для работы с маркерами -->
+    <script src="https://cdn.jsdelivr.net/npm/ar.js@3.4.3/aframe/build/aframe-ar.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      /* Простая подсказка для пользователя */
+      #hint {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-family: sans-serif;
+        z-index: 100;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Подсказка на экране -->
+    <div id="hint">Наведите камеру на маркер Hiro</div>
+
+    <!-- 3. Создаем AR-сцену -->
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" vr-mode-ui="enabled: false">
+      
+      <!-- 4. Указываем маркер (preset="hiro" — это стандартный маркер) -->
+      <a-marker preset="hiro">
+        
+        <!-- 5. Загружаем модель кроссовка -->
+        <!-- ВАЖНО: настройте scale, position и rotation под свою модель -->
+        <a-entity 
+          gltf-model="url(sneaker.glb)" 
+          position="0 0 0" 
+          scale="0.5 0.5 0.5"
+          rotation="0 0 0">
+        </a-entity>
+        
+        <!-- (Опционально) Добавим тень или круг под кроссовком для реалистичности -->
+        <a-circle color="#000" opacity="0.3" radius="0.5" rotation="-90 0 0" position="0 0 0"></a-circle>
+        
+      </a-marker>
+      
+      <!-- 6. Камера -->
+      <a-entity camera></a-entity>
+      
+    </a-scene>
+  </body>
+</html>
